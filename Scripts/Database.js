@@ -57,7 +57,15 @@ searchToons = function(name){
     var regEx = new RegExp(name,'i');
     for(var i = 0;i<tunes.length;i++){
         var o = tunes[i];
-        if(o.Obtained && (regEx.test(o.Name)||regEx.test(o.OriginalToon))) ret.push(o);
+        if(o.Obtained){
+            if(regEx.test(o.Name)||regEx.test(o.OriginalToon)) ret.push(o);
+            else{
+                for(var j = 0;j<o.Tags.length;j++){
+                    if(regEx.test(o.Tags[j])) ret.push(o);
+                }
+            }
+        } 
+        
     }
     return ret;
 };
