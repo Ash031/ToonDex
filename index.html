@@ -174,14 +174,21 @@
 
         // Get the button that opens the modal
         var TUbtn = document.getElementById("TUSelect");
-
+        //closeTU
+        var spanTU = document.getElementsByClassName("closeTU")[0];
         // When the user clicks the button, open the modal 
         showTUModal = function(i) {
             TUmodal.style.display = "block";
             generateTUModal(i);
         }
 
-
+        spanTU.onclick = function() {
+            TUmodal.style.display = "none";
+            var box = document.getElementById('TUBox');
+            changeToonTunes(box.name,box.value);
+            save();
+            loadTunes();
+        }
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
         if (event.target == TUmodal) {
