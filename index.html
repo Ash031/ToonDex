@@ -2,9 +2,43 @@
     <script src="Scripts/Main.js"></script>
     <script src="Scripts/Database.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="CSS/my.css">
     <title>ToonDex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body onLoad="loadTunes()" background="Images/Background.jpg"style="background-size:100% 100%">
+<body onLoad="load()">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3>Select your collected toons</h3>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            
+        <div class="modal-footer">
+            <span class="close">Save</span>
+        </div>
+        </div>
+    </div>
+    <!-- The Lvl Modal -->
+    <div id="myLvlModal" class="modal">
+        <!-- Lvl Modal content -->  
+        <div class="modal-content">
+            <div class="modal-header" id="lvl-modal-header"></div>
+            <div class="modal-body" id="lvl-modal-body"></div>
+            
+        </div>
+    </div>
+    <!-- The TU Modal -->
+    <div id="myTUModal" class="modal">
+        <!-- TU Modal content -->  
+        <div class="modal-content">
+            <div class="modal-header" id="TU-modal-header"></div>
+            <div class="modal-body" id="TU-modal-body"></div>
+            
+        </div>
+    </div>
     <div align="center" class="w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red">
         <h1>
             ToonDex
@@ -19,6 +53,128 @@
         </table>
         </div>
         <div class="w3-container w3-third">
+            <!-- Trigger/Open The Modal -->
+            <button id="myBtn">Manage Characters</button>
+            <div>
+            <!-- Stats -->
+            </div>
+            <div>
+                <label>
+					<input type="checkbox" id="Forest">
+					Forest
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="Town">
+					Town
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="Farm">
+					Farm
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="Desert">
+					Desert
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="City">
+					City
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="Space">
+					Space
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="WB Studios">
+					WB Studios
+				</label>
+                <br/>
+                <label>
+					<input type="checkbox" id="Avalooney">
+					Avalooney
+				</label>
+                <button onClick=""> Search </button>
+
+            </div>
         </div>
     </div>
+    <!-- Modal Script -->
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+        modal.style.display = "block";
+        generateToonManager();
+        }
+
+       // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            save();
+            loadTunes();
+            modal.style.display = "none";
+        }
+    </script>
+
+    <!-- Lvl Modal Script -->
+    <script>
+        // Get the modal
+        var lvlmodal = document.getElementById('myLvlModal');
+
+        // Get the button that opens the modal
+        var lvlbtn = document.getElementById("lvlSelect");
+
+        // When the user clicks the button, open the modal 
+        showLvlModal = function(i) {
+            lvlmodal.style.display = "block";
+            generateLvlUpModal(i);
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == lvlmodal) {
+            lvlmodal.style.display = "none";
+            var box = document.getElementById('lvlBox');
+            changeToonLevel(box.name,box.value);
+            save();
+            loadTunes();
+        }
+        }
+    </script>
+
+    <!-- TuneUp Modal Script -->
+    <script>
+        // Get the modal
+        var TUmodal = document.getElementById('myTUModal');
+
+        // Get the button that opens the modal
+        var TUbtn = document.getElementById("TUSelect");
+
+        // When the user clicks the button, open the modal 
+        showTUModal = function(i) {
+            TUmodal.style.display = "block";
+            generateTUModal(i);
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == TUmodal) {
+            TUmodal.style.display = "none";
+            var box = document.getElementById('TUBox');
+            changeToonTunes(box.name,box.value);
+            save();
+            loadTunes();
+        }
+        }
+    </script>
 </body>
