@@ -49,6 +49,18 @@
             </div>
         </div>
     </div>
+    <!-- The Rank Modal -->
+    <div id="myRankModal" class="modal">
+        <!-- Rank Modal content -->  
+        <div class="modal-content">
+            <div class="modal-header" id="Rank-modal-header"></div>
+            <div class="modal-body" id="Rank-modal-body"></div>
+        
+            <div class="modal-footer">
+                <span class="closeRank">Save</span>
+            </div>
+        </div>
+    </div>
     <div align="center" class="w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red">
         <h1>
             ToonDex
@@ -58,11 +70,11 @@
         </h6>
     </div>
     <div id="Main">
-        <div class="w3-container w3-twothird">
+        <div class="w3-container w3-threequarter">
         <table id="MainTable" style="width=75%" class="w3-table w3-striped w3-border">
         </table>
         </div>
-        <div class="w3-container w3-third">
+        <div class="w3-container w3-quarter">
             <button id="myBtn">Manage Characters</button>
             <div>
             <!-- Stats -->
@@ -73,7 +85,7 @@
             </div>
             <div>
                 <h2>Search:</h2>
-                Select a Toon:
+                Toon:
                 <input id="CharacterSearch" type="text">
                 <button onClick="SearchByName()">Search</button>
                 <!-- Search 
@@ -202,6 +214,30 @@
             TUmodal.style.display = "none";
             var box = document.getElementById('TUBox');
             changeToonTunes(box.name,box.value);
+            save();
+            loadTunes();
+        }
+    </script>
+
+    <!-- Rank Modal Script -->
+    <script>
+        // Get the modal
+        var Rankmodal = document.getElementById('myRankModal');
+
+        // Get the button that opens the modal
+        var Rankbtn = document.getElementById("RankSelect");
+        //closeRank
+        var spanRank = document.getElementsByClassName("closeRank")[0];
+        // When the user clicks the button, open the modal 
+        showRankModal = function(i) {
+            Rankmodal.style.display = "block";
+            generateRankModal(i);
+        }
+
+        spanRank.onclick = function() {
+            Rankmodal.style.display = "none";
+            var box = document.getElementById('RankBox');
+            changeToonRank(box.name,box.value);
             save();
             loadTunes();
         }

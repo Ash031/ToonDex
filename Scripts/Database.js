@@ -1,9 +1,21 @@
 save = function(){
     localStorage.setItem("tunes", JSON.stringify(tunes));
+    localStorage.setItem("version", Version);
 };
 
 load = function(){
-    if(localStorage.tunes) tunes = JSON.parse(localStorage.tunes);
+    if(localStorage.tunes) {
+        tunes = JSON.parse(localStorage.tunes);
+        if(localStorage.Version){
+            loadTunes();
+            return;
+        }
+        else{
+            for(var i=0;i<tunes.length;i++){
+                tunes[i].Rank=(tunes[i].Rarity+1);
+            }
+        }
+    }
     loadTunes();
 };
 
@@ -33,6 +45,10 @@ generateTUModal = function(i){
     document.getElementById("TU-modal-header").innerHTML = "<p>Select your "+i+"</p>";
     document.getElementById("TU-modal-body").innerHTML = "<input id=\"TUBox\" type=\"number\" name='"+i+"'>";
 };
+generateRankModal = function(i){
+    document.getElementById("Rank-modal-header").innerHTML = "<p>Select your "+i+"</p>";
+    document.getElementById("Rank-modal-body").innerHTML = "<input id=\"RankBox\" type=\"number\" name='"+i+"'>";
+};
 
 searchToons = function(name){
     ret = [];
@@ -45,18 +61,18 @@ searchToons = function(name){
 };
 
 printToons = function(toons){
-    var text = "<tr><th>Name</th><th>Zone</th><th>Class</th><th>Rarity</th><th>Level</th><th>TunesUp</th></tr>";
+    var text = "<tr><th>Name</th><th>Zone</th><th>Class</th><th>Rarity</th><th>Level</th><th>TunesUp</th><th>Rank</th></tr>";
     for(var i=0;i<toons.length;i++){
         var o = toons[i];
         var name = "'"+o.Name+"'";
-        if(o.Zone==0)text += "<tr class=\"w3-green\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==1)text += "<tr class=\"w3-light-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==2)text += "<tr class=\"w3-yellow\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==3)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==4)text += "<tr class=\"w3-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==5)text += "<tr class=\"w3-purple\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==6)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
-        if(o.Zone==7)text += "<tr class=\"w3-pink\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==0)text += "<tr class=\"w3-green\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==1)text += "<tr class=\"w3-light-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==2)text += "<tr class=\"w3-yellow\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==3)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==4)text += "<tr class=\"w3-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==5)text += "<tr class=\"w3-purple\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==6)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        if(o.Zone==7)text += "<tr class=\"w3-pink\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
     }
     return text;
 };
@@ -101,6 +117,19 @@ changeToonTunes = function(toon,tunesUp){
         }
     }
 };
+changeToonRank = function(toon,Rank){
+    if(Rank){
+        if(Rank>7) Rank = 7;
+    } 
+    else Rank=1;
+    for(var i=0;i<tunes.length;i++){
+        if(tunes[i].Name===toon){
+            if(Rank<=tunes[i].Rarity)Rank = tunes[i].Rarity+1;
+            tunes[i].Rank = Rank;
+            return;
+        }
+    }
+};
 
 NToonGot = function(){
     var ret = 0;
@@ -136,6 +165,7 @@ tunes = [
         Zone:0,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Rural","Original"],
@@ -147,6 +177,7 @@ tunes = [
         Zone:0,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Rural","Original"],
@@ -158,6 +189,7 @@ tunes = [
         Zone:0,
         Class:1,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Human","Hunter","Original"],
@@ -169,6 +201,7 @@ tunes = [
         Zone:0,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Hunter"],
@@ -180,6 +213,7 @@ tunes = [
         Zone:0,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Alien","Hunter"],
@@ -191,6 +225,7 @@ tunes = [
         Zone:0,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Explorer"],
@@ -202,6 +237,7 @@ tunes = [
         Zone:0,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Scout"],
@@ -213,6 +249,7 @@ tunes = [
         Zone:0,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Scout"],
@@ -224,6 +261,7 @@ tunes = [
         Zone:0,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Scout"],
@@ -235,6 +273,7 @@ tunes = [
         Zone:1,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Citizen","Original"],
@@ -246,6 +285,7 @@ tunes = [
         Zone:1,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Monster","Athlete"],
@@ -257,6 +297,7 @@ tunes = [
         Zone:1,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Citizen","Original"],
@@ -268,6 +309,7 @@ tunes = [
         Zone:1,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Artist"],
@@ -279,6 +321,7 @@ tunes = [
         Zone:1,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Professional"],
@@ -290,6 +333,7 @@ tunes = [
         Zone:1,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Professional"],
@@ -301,6 +345,7 @@ tunes = [
         Zone:1,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Skunk","Citizen","Original"],
@@ -312,6 +357,7 @@ tunes = [
         Zone:1,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Citizen","Original"],
@@ -323,6 +369,7 @@ tunes = [
         Zone:1,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Cop"],
@@ -334,6 +381,7 @@ tunes = [
         Zone:1,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Cop"],
@@ -345,6 +393,7 @@ tunes = [
         Zone:2,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Rural","Original"],
@@ -356,6 +405,7 @@ tunes = [
         Zone:2,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Rural","Original"],
@@ -367,6 +417,7 @@ tunes = [
         Zone:2,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Rural","Original"],
@@ -378,6 +429,7 @@ tunes = [
         Zone:2,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Farmer"],
@@ -389,6 +441,7 @@ tunes = [
         Zone:2,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Farmer"],
@@ -400,6 +453,7 @@ tunes = [
         Zone:2,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Farmer"],
@@ -411,6 +465,7 @@ tunes = [
         Zone:2,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Farmer"],
@@ -422,6 +477,7 @@ tunes = [
         Zone:2,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Professional","Original"],
@@ -433,6 +489,7 @@ tunes = [
         Zone:2,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Professional","Original"],
@@ -444,6 +501,7 @@ tunes = [
         Zone:3,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Outlaw"],
@@ -455,6 +513,7 @@ tunes = [
         Zone:3,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Outlaw"],
@@ -466,6 +525,7 @@ tunes = [
         Zone:3,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Mastermind","Original"],
@@ -477,6 +537,7 @@ tunes = [
         Zone:3,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Wild West","Original"],
@@ -488,6 +549,7 @@ tunes = [
         Zone:3,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Cop"],
@@ -499,6 +561,7 @@ tunes = [
         Zone:3,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Wild West"],
@@ -510,6 +573,7 @@ tunes = [
         Zone:3,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Wild West"],
@@ -521,6 +585,7 @@ tunes = [
         Zone:3,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Hero"],
@@ -532,6 +597,7 @@ tunes = [
         Zone:3,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Human","Outlaw","Original"],
@@ -543,6 +609,7 @@ tunes = [
         Zone:4,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Human","Citizen","Original"],
@@ -554,6 +621,7 @@ tunes = [
         Zone:4,
         Class:1,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Citizen","Original"],
@@ -565,6 +633,7 @@ tunes = [
         Zone:4,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Citizen","Original"],
@@ -576,6 +645,7 @@ tunes = [
         Zone:4,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Staff"],
@@ -587,6 +657,7 @@ tunes = [
         Zone:4,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Cop"],
@@ -598,6 +669,7 @@ tunes = [
         Zone:4,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Villain"],
@@ -609,6 +681,7 @@ tunes = [
         Zone:4,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Staff"],
@@ -620,6 +693,7 @@ tunes = [
         Zone:4,
         Class:1,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Artist"],
@@ -631,6 +705,7 @@ tunes = [
         Zone:5,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Explorer"],
@@ -642,6 +717,7 @@ tunes = [
         Zone:5,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Hero"],
@@ -653,6 +729,7 @@ tunes = [
         Zone:5,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Hero"],
@@ -664,6 +741,7 @@ tunes = [
         Zone:5,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Explorer"],
@@ -675,6 +753,7 @@ tunes = [
         Zone:5,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Explorer"],
@@ -686,6 +765,7 @@ tunes = [
         Zone:5,
         Class:0,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Explorer"],
@@ -697,6 +777,7 @@ tunes = [
         Zone:5,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Villain"],
@@ -708,6 +789,7 @@ tunes = [
         Zone:5,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Alien","Mastermind","Original"],
@@ -719,6 +801,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Mouse","Outlaw"],
@@ -730,6 +813,7 @@ tunes = [
         Zone:6,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Artist"],
@@ -741,6 +825,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Artist"],
@@ -752,6 +837,7 @@ tunes = [
         Zone:6,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Holiday"],
@@ -763,6 +849,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Holiday"],
@@ -774,6 +861,7 @@ tunes = [
         Zone:6,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Holiday"],
@@ -785,6 +873,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Holiday"],
@@ -796,6 +885,7 @@ tunes = [
         Zone:6,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Human","Holiday"],
@@ -807,6 +897,7 @@ tunes = [
         Zone:6,
         Class:1,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Monster","Villain"],
@@ -818,6 +909,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Mastermind"],
@@ -829,6 +921,7 @@ tunes = [
         Zone:6,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Magic"],
@@ -840,6 +933,7 @@ tunes = [
         Zone:6,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Wild West"],
@@ -851,6 +945,7 @@ tunes = [
         Zone:6,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Human","Wild West"],
@@ -862,6 +957,7 @@ tunes = [
         Zone:6,
         Class:1,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Wild West"],
@@ -873,6 +969,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Hero"],
@@ -884,6 +981,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Human","Magic"],
@@ -895,6 +993,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Human","Staff"],
@@ -906,6 +1005,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Skunk","Artist"],
@@ -917,6 +1017,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Holiday"],
@@ -928,6 +1029,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Hero"],
@@ -939,6 +1041,7 @@ tunes = [
         Zone:7,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Professional"],
@@ -950,6 +1053,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Bird","Hero"],
@@ -961,6 +1065,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Cat","Villain"],
@@ -972,6 +1077,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Pig","Staff"],
@@ -983,6 +1089,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","King"],
@@ -994,6 +1101,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Dog","Staff"],
@@ -1005,6 +1113,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Human","Magic"],
@@ -1016,6 +1125,7 @@ tunes = [
         Zone:7,
         Class:0,
         Rarity:1,
+        Rank:2,
         Level:1,
         TunesUp:1,
         Tags:["Human","Magic","Original"],
@@ -1027,6 +1137,7 @@ tunes = [
         Zone:7,
         Class:1,
         Rarity:0,
+        Rank:1,
         Level:1,
         TunesUp:1,
         Tags:["Monster","Villain","Original"],
@@ -1038,6 +1149,7 @@ tunes = [
         Zone:7,
         Class:2,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Rabbit","Magic"],
@@ -1049,6 +1161,7 @@ tunes = [
         Zone:7,
         Class:1,
         Rarity:2,
+        Rank:3,
         Level:1,
         TunesUp:1,
         Tags:["Human","Hero"],
