@@ -36,7 +36,7 @@ generateTUModal = function(i){
 
 searchToons = function(name){
     ret = [];
-    var regEx = new RegExp(name);
+    var regEx = new RegExp(name,'i');
     for(var i = 0;i<tunes.length;i++){
         var o = tunes[i];
         if(o.Obtained && (regEx.test(o.Name)||regEx.test(o.OriginalToon))) ret.push(o);
