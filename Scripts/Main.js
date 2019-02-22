@@ -15,6 +15,7 @@ generateStats = function(){
     document.getElementById("TCount").innerHTML = "Collected "+NToonGot()+" out of "+tunes.length+" toons";
     document.getElementById("avLvl").innerHTML = "Average Level: "+avLvl();
     document.getElementById("avTun").innerHTML = "Average Tune Up: "+avTU();
+    document.getElementById("avRank").innerHTML = "Average Rank: "+avRank();
 };
 
 SearchByName = function(){

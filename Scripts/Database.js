@@ -79,16 +79,19 @@ printToons = function(toons){
 printCollected = function(){
     var text = "";
     for(var i=0;i<tunes.length;i++){
+        var quoted = '\''+tunes[i].Name+'\'';
         var name = tunes[i].Name;
-        text += "<label><input onClick=\"getToon("+i+")\" type=\"checkbox\" id=\""+name+"\"";
+        text += "<label><input onClick=\"getToon("+quoted+")\" type=\"checkbox\" id=\""+name+"\"";
         if(tunes[i].Obtained) text+="checked=\"\"";
         text +=">"+name+"</label><br/>";    
     }
     return text;
 };
 
-getToon = function(toonN){
-    tunes[toonN].Obtained = !tunes[toonN].Obtained; 
+getToon = function(name){
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Name === name) tunes[i].Obtained = !tunes[i].Obtained; 
+    }
 };
 
 changeToonLevel = function(toon,lvl){
@@ -124,6 +127,7 @@ changeToonRank = function(toon,Rank){
     else Rank=1;
     for(var i=0;i<tunes.length;i++){
         if(tunes[i].Name===toon){
+
             if(Rank<=tunes[i].Rarity)Rank = tunes[i].Rarity+1;
             tunes[i].Rank = Rank;
             return;
@@ -144,7 +148,6 @@ avLvl = function(){
     for(var i = 0;i<tunes.length;i++){
         if(tunes[i].Obtained) ret+=parseInt(tunes[i].Level);
     }
-    console.log(ret + " " + NToonGot()+" "+ (ret/NToonGot()));
     return (ret/NToonGot());
 };
 avTU = function(){
@@ -153,6 +156,39 @@ avTU = function(){
         if(tunes[i].Obtained) ret+=parseInt(tunes[i].TunesUp);
     }
     return (ret/NToonGot());
+};
+avRank = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Obtained) ret+=parseInt(tunes[i].Rank);
+    }
+    return (ret/NToonGot());
+};
+
+SortByLevel = function(){
+    tunes.sort(function(a, b){return b.Level-a.Level;});
+    loadTunes();
+    save();
+};
+SortByZone = function(){
+    tunes.sort(function(a, b){return a.Zone-b.Zone;});
+    loadTunes();
+    save();
+};
+SortByRank = function(){
+    tunes.sort(function(a, b){return b.Rank-a.Rank;});
+    loadTunes();
+    save();
+};
+SortByTunesUp = function(){
+    tunes.sort(function(a, b){return b.TunesUp-a.TunesUp;});
+    loadTunes();
+    save();
+};
+SortByOT = function(){
+    tunes.sort(function(a, b){return a.OriginalToon.localeCompare(b.OriginalToon);});
+    loadTunes();
+    save();
 };
 
 Version = "0.0.1";

@@ -82,57 +82,28 @@
             <p id="TCount"></p>
             <p id="avLvl"></p>
             <p id="avTun"></p>
+            <p id="avRank"></p>
             </div>
             <div>
                 <h2>Search:</h2>
                 Toon:
                 <input id="CharacterSearch" type="text">
                 <button onClick="SearchByName()">Search</button>
-                <!-- Search 
-                <label>
-					<input type="checkbox" id="Forest">
-					Forest
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="Town">
-					Town
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="Farm">
-					Farm
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="Desert">
-					Desert
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="City">
-					City
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="Space">
-					Space
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="WB Studios">
-					WB Studios
-				</label>
-                <br/>
-                <label>
-					<input type="checkbox" id="Avalooney">
-					Avalooney
-				</label>
-                <button onClick=""> Search </button>
-                -->
+                <h2>Sort by:</h2>
+                <button style="width:45%"onClick="SortByZone()">Zone</button>
+                <button style="width:45%"onClick="SortByLevel()">Level</button>
+                <button style="width:45%"onClick="SortByRank()">Rank</button>
+                <button style="width:45%"onClick="SortByTunesUp()">Tune Ups</button>
+                <button style="width:45%"onClick="SortByOT()">Original Toon</button>
             </div>
         </div>
     </div>
+
+
+
+
+
+
     <!-- Modal Script -->
     <script>
         // Get the modal
