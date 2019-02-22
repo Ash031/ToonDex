@@ -14,6 +14,11 @@ allToons = function(){
     }
     return ret;
 };
+addAll = function(){
+    for(var i=0;i<tunes.length;i++){
+        tunes[i].Obtained=true;
+    }
+};
 
 generateLvlUpModal = function(i){
     document.getElementById("lvl-modal-header").innerHTML = "<p>Select your "+i+"</p>";

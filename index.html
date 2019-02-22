@@ -17,6 +17,8 @@
             <div class="modal-body" id="modal-body"></div>
             
         <div class="modal-footer">
+            <span class="addAll">I have Everyone</span>
+            <br/>
             <span class="close">Save</span>
         </div>
         </div>
@@ -28,6 +30,9 @@
             <div class="modal-header" id="lvl-modal-header"></div>
             <div class="modal-body" id="lvl-modal-body"></div>
             
+            <div class="modal-footer">
+                <span class="lvlClose">Save</span>
+            </div>
         </div>
     </div>
     <!-- The TU Modal -->
@@ -36,7 +41,10 @@
         <div class="modal-content">
             <div class="modal-header" id="TU-modal-header"></div>
             <div class="modal-body" id="TU-modal-body"></div>
-            
+        
+            <div class="modal-footer">
+                <span class="closeTU">Save</span>
+            </div>
         </div>
     </div>
     <div align="center" class="w3-panel w3-topbar w3-bottombar w3-border-red w3-pale-red">
@@ -113,6 +121,7 @@
         var btn = document.getElementById("myBtn");
 
         var span = document.getElementsByClassName("close")[0];
+        var addAllBtn = document.getElementsByClassName("addAll")[0];
         // When the user clicks the button, open the modal 
         btn.onclick = function() {
         modal.style.display = "block";
@@ -121,6 +130,13 @@
 
        // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
+            save();
+            loadTunes();
+            modal.style.display = "none";
+        }
+        
+        addAllBtn.onclick = function() {
+            addAll();
             save();
             loadTunes();
             modal.style.display = "none";
@@ -134,22 +150,20 @@
 
         // Get the button that opens the modal
         var lvlbtn = document.getElementById("lvlSelect");
-
+        
+        var spanlvl = document.getElementsByClassName("lvlClose")[0];
+        
         // When the user clicks the button, open the modal 
         showLvlModal = function(i) {
             lvlmodal.style.display = "block";
             generateLvlUpModal(i);
         }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-        if (event.target == lvlmodal) {
+        spanlvl.onclick = function() {
             lvlmodal.style.display = "none";
             var box = document.getElementById('lvlBox');
             changeToonLevel(box.name,box.value);
             save();
             loadTunes();
-        }
         }
     </script>
 
@@ -166,6 +180,7 @@
             TUmodal.style.display = "block";
             generateTUModal(i);
         }
+
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
