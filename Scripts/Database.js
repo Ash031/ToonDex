@@ -19,6 +19,11 @@ addAll = function(){
         tunes[i].Obtained=true;
     }
 };
+removeAll = function(){
+    for(var i=0;i<tunes.length;i++){
+        tunes[i].Obtained=false;
+    }
+};
 
 generateLvlUpModal = function(i){
     document.getElementById("lvl-modal-header").innerHTML = "<p>Select your "+i+"</p>";
@@ -40,7 +45,14 @@ printToons = function(toons){
     for(var i=0;i<toons.length;i++){
         var o = toons[i];
         var name = "'"+o.Name+"'";
-        text += "<tr><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==0)text += "<tr class=\"w3-green\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==1)text += "<tr class=\"w3-light-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==2)text += "<tr class=\"w3-yellow\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==3)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==4)text += "<tr class=\"w3-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==5)text += "<tr class=\"w3-purple\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==6)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
+        if(o.Zone==7)text += "<tr class=\"w3-pink\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button></td></tr>";    
     }
     return text;
 };
@@ -84,6 +96,30 @@ changeToonTunes = function(toon,tunesUp){
             return;
         }
     }
+};
+
+NToonGot = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Obtained) ret++;
+    }
+    return ret;
+};
+
+avLvl = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Obtained) ret+=parseInt(tunes[i].Level);
+    }
+    console.log(ret + " " + NToonGot()+" "+ (ret/NToonGot()));
+    return (ret/NToonGot());
+};
+avTU = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Obtained) ret+=parseInt(tunes[i].TunesUp);
+    }
+    return (ret/NToonGot());
 };
 
 Version = "0.0.1";

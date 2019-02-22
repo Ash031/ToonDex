@@ -19,6 +19,8 @@
         <div class="modal-footer">
             <span class="addAll">I have Everyone</span>
             <br/>
+            <span class="leftAll">I have No One</span>
+            <br/>
             <span class="close">Save</span>
         </div>
         </div>
@@ -61,10 +63,13 @@
         </table>
         </div>
         <div class="w3-container w3-third">
-            <!-- Trigger/Open The Modal -->
             <button id="myBtn">Manage Characters</button>
             <div>
             <!-- Stats -->
+            <h2>Statitics:</h2>
+            <p id="TCount"></p>
+            <p id="avLvl"></p>
+            <p id="avTun"></p>
             </div>
             <div>
                 <!-- Search 
@@ -122,6 +127,7 @@
 
         var span = document.getElementsByClassName("close")[0];
         var addAllBtn = document.getElementsByClassName("addAll")[0];
+        var removeAllBtn = document.getElementsByClassName("leftAll")[0];
         // When the user clicks the button, open the modal 
         btn.onclick = function() {
         modal.style.display = "block";
@@ -137,6 +143,12 @@
         
         addAllBtn.onclick = function() {
             addAll();
+            save();
+            loadTunes();
+            modal.style.display = "none";
+        }
+        removeAllBtn.onclick = function() {
+            removeAll();
             save();
             loadTunes();
             modal.style.display = "none";
@@ -188,16 +200,6 @@
             changeToonTunes(box.name,box.value);
             save();
             loadTunes();
-        }
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-        if (event.target == TUmodal) {
-            TUmodal.style.display = "none";
-            var box = document.getElementById('TUBox');
-            changeToonTunes(box.name,box.value);
-            save();
-            loadTunes();
-        }
         }
     </script>
 </body>
