@@ -34,9 +34,13 @@ generateTUModal = function(i){
     document.getElementById("TU-modal-body").innerHTML = "<input id=\"TUBox\" type=\"number\" name='"+i+"'>";
 };
 
-searchToons = function(){
-    var ret = allToons();
-    //Filter
+searchToons = function(name){
+    ret = [];
+    var regEx = new RegExp(name);
+    for(var i = 0;i<tunes.length;i++){
+        var o = tunes[i];
+        if(o.Obtained && (regEx.test(o.Name)||regEx.test(o.OriginalToon))) ret.push(o);
+    }
     return ret;
 };
 

@@ -16,3 +16,7 @@ generateStats = function(){
     document.getElementById("avLvl").innerHTML = "Average Level: "+avLvl();
     document.getElementById("avTun").innerHTML = "Average Tune Up: "+avTU();
 };
+
+SearchByName = function(){
+    document.getElementById("MainTable").innerHTML = printToons(searchToons(document.getElementById("CharacterSearch").value));
+};
