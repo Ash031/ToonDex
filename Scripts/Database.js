@@ -180,6 +180,11 @@ SortByLevel = function(){
     loadTunes();
     save();
 };
+SortByClass = function(){
+    tunes.sort(function(a, b){return a.Class-b.Class;});
+    loadTunes();
+    save();
+};
 SortByZone = function(){
     tunes.sort(function(a, b){return a.Zone-b.Zone;});
     loadTunes();
@@ -197,6 +202,11 @@ SortByTunesUp = function(){
 };
 SortByOT = function(){
     tunes.sort(function(a, b){return a.OriginalToon.localeCompare(b.OriginalToon);});
+    loadTunes();
+    save();
+};
+SortByName = function(){
+    tunes.sort(function(a, b){return a.Name.localeCompare(b.Name);});
     loadTunes();
     save();
 };
