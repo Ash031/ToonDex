@@ -2,7 +2,9 @@ save = function(){
     localStorage.setItem("tunes", JSON.stringify(tunes));
     localStorage.setItem("version", Version);
 };
-
+loadString = function(string){
+    tunes = JSON.parse(string);
+};
 load = function(){
     if(localStorage.tunes) {
         tunes = JSON.parse(localStorage.tunes);

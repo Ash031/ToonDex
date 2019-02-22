@@ -54,10 +54,25 @@
         <!-- Rank Modal content -->  
         <div class="modal-content">
             <div class="modal-header" id="Rank-modal-header"></div>
-            <div class="modal-body" id="Rank-modal-body"></div>
-        
+            <div class="modal-body" id="Rank-modal-body">
+            
+            </div>
             <div class="modal-footer">
                 <span class="closeRank">Save</span>
+            </div>
+        </div>
+    </div>
+    <!-- The Rank Modal -->
+    <div id="myLoadModal" class="modal">
+        <!-- Rank Modal content -->  
+        <div class="modal-content">
+            <div class="modal-header" id="Load-modal-header"></div>
+            <div class="modal-body" id="Load-modal-body">
+            <input id="LoadBox" type="text">
+            </div>
+        
+            <div class="modal-footer">
+                <span class="closeLoad">Load</span>
             </div>
         </div>
     </div>
@@ -94,7 +109,9 @@
                 <button style="width:45%"onClick="SortByLevel()">Level</button>
                 <button style="width:45%"onClick="SortByRank()">Rank</button>
                 <button style="width:45%"onClick="SortByTunesUp()">Tune Ups</button>
-                <button style="width:45%"onClick="SortByOT()">Original Toon</button>
+                <button style="width:45%"onClick="SortByOT()">Original Toon</button><br/>
+                <button onClick="ExportData()">Export Data</button>
+                <button onClick="showLoadModal()">Import Data</button>
             </div>
         </div>
     </div>
@@ -102,6 +119,15 @@
 
 
 
+    <script type="text/javascript">
+        // when document is ready
+        ExportData = function() {
+            // when clicked the button
+            var content = localStorage.tunes;
+            // a [save as] dialog will be shown
+            window.open("data:application/txt," + encodeURIComponent(content), "_self");
+        }
+    </script>
 
 
     <!-- Modal Script -->
@@ -209,6 +235,29 @@
             Rankmodal.style.display = "none";
             var box = document.getElementById('RankBox');
             changeToonRank(box.name,box.value);
+            save();
+            loadTunes();
+        }
+    </script>
+
+    <!-- Load Modal Script -->
+    <script>
+        // Get the modal
+        var Loadmodal = document.getElementById('myLoadModal');
+
+        // Get the button that opens the modal
+        var Loadbtn = document.getElementById("LoadSelect");
+        //closeLoad
+        var spanLoad = document.getElementsByClassName("closeLoad")[0];
+        // When the user clicks the button, open the modal 
+        showLoadModal = function() {
+            Loadmodal.style.display = "block";
+        }
+
+        spanLoad.onclick = function() {
+            Loadmodal.style.display = "none";
+            var box = document.getElementById('LoadBox');
+            loadString(box.value);
             save();
             loadTunes();
         }
