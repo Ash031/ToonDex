@@ -161,37 +161,86 @@ avRank = function(){
 };
 
 SortByLevel = function(){
-    tunes.sort(function(a, b){return b.Level-a.Level;});
+    if(LastSorted==1) {
+        LastSorted=-1;
+        tunes.sort(function(a, b){return a.Level-b.Level;});
+    }
+    else {
+        LastSorted=1;
+        tunes.sort(function(a, b){return b.Level-a.Level;});
+    }
     loadTunes();
     save();
 };
 SortByClass = function(){
-    tunes.sort(function(a, b){return a.Class-b.Class;});
+    if(LastSorted==2) {
+        LastSorted=-2;
+        tunes.sort(function(a, b){return b.Class-a.Class;});
+    }
+    else {
+        LastSorted=2;
+        tunes.sort(function(a, b){return a.Class-b.Class;});
+    }
     loadTunes();
     save();
 };
 SortByZone = function(){
-    tunes.sort(function(a, b){return a.Zone-b.Zone;});
+    if(LastSorted==3) {
+        LastSorted=-3;
+        tunes.sort(function(a, b){return b.Zone-a.Zone;});
+    }
+    else {
+        LastSorted=3;
+        tunes.sort(function(a, b){return a.Zone-b.Zone;});
+    }
     loadTunes();
     save();
 };
 SortByRank = function(){
-    tunes.sort(function(a, b){return b.Rank-a.Rank;});
+    if(LastSorted==4) {
+        LastSorted=-4;
+        tunes.sort(function(a, b){return a.Rank-b.Rank;});
+    }
+    else {
+        LastSorted=4;
+        tunes.sort(function(a, b){return b.Rank-a.Rank;});
+    }
     loadTunes();
     save();
 };
 SortByTunesUp = function(){
-    tunes.sort(function(a, b){return b.TunesUp-a.TunesUp;});
+    if(LastSorted==5) {
+        LastSorted=-5;
+        tunes.sort(function(a, b){return a.TunesUp-b.TunesUp;});
+    }
+    else {
+        LastSorted=5;
+        tunes.sort(function(a, b){return b.TunesUp-a.TunesUp;});
+    }
     loadTunes();
     save();
 };
 SortByOT = function(){
-    tunes.sort(function(a, b){return a.OriginalToon.localeCompare(b.OriginalToon);});
+    if(LastSorted==6) {
+        LastSorted=-6;
+        tunes.sort(function(a, b){return b.OriginalToon.localeCompare(a.OriginalToon);});
+    }
+    else {
+        LastSorted=6;
+        tunes.sort(function(a, b){return a.OriginalToon.localeCompare(b.OriginalToon);});
+    }
     loadTunes();
     save();
 };
 SortByName = function(){
-    tunes.sort(function(a, b){return a.Name.localeCompare(b.Name);});
+    if(LastSorted==7) {
+        LastSorted=-7;
+        tunes.sort(function(a, b){return b.Name.localeCompare(a.Name);});
+    }
+    else {
+        LastSorted=7;
+        tunes.sort(function(a, b){return a.Name.localeCompare(b.Name);});
+    }
     loadTunes();
     save();
 };

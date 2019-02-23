@@ -31,3 +31,4 @@ load = function(){
 
 
 Version = "0.0.2";
+LastSorted=0;

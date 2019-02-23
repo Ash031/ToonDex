@@ -18,3 +18,4 @@ Made by: Ashzinho031
 ### V0.0.2:
 
 - Added Teams
+- Added Reverse Sort (Double Click Sort Button)
