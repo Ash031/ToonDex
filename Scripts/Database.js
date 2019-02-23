@@ -152,6 +152,13 @@ avTU = function(){
     }
     return (ret/NToonGot());
 };
+TotalTUGold = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        if(tunes[i].Obtained) ret+=TUGoldLvl(tunes[i].TunesUp);
+    }
+    return ret;
+};
 avRank = function(){
     var ret = 0;
     for(var i = 0;i<tunes.length;i++){
@@ -287,6 +294,14 @@ spaceLeft = function(){
         if(Teams[i].length<4)return true;
     }
     return false;
+};
+
+TUGoldLvl = function(TU){
+    var ret = 0;
+    for(var i = 1;i<TU;i++){
+        ret += GoldCostsTU[i];
+    }
+    return ret;
 };
 
 Teams = [[],[],[],[]];
@@ -1305,3 +1320,7 @@ tunes = [
 Zones = ["Forest","Town","Farm","Desert","City","Space","WBStudios","Avalooney"];
 Class = ["Attacker","Defender","Support"];
 Rarity= ["Common","Rare","Epic"];
+
+GoldCostsTU = [0,0,100,115,135,150,225,265,300,345,400,715,825,975,1050,1275,2850,3300,3750,4200,4800,8100,9225,10350,11700,13050,24000,26625,29250,31875,34500];
+GoldCostsLU = [];
+TotalXPLU = [];
