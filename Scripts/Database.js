@@ -240,7 +240,6 @@ spaceLeft = function(){
     return false;
 };
 
-Version = "0.0.2";
 Teams = [[],[],[],[]];
 tunes = [
     {

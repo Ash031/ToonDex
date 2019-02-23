@@ -28,3 +28,6 @@ load = function(){
     }
     loadTunes();
 };
+
+
+Version = "0.0.2";
