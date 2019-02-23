@@ -66,7 +66,7 @@ printToons = function(toons){
         text+= "\"><td>"+o.Name+"</td><td>";
         if(onTeam(o.Name)) text+= getTeam(o.Name)+"<button onClick=\"removeFromTeam("+name+")\">Remove</button>";
         else if(spaceLeft())text += "<button onClick=\"addToTeam("+name+")\">Add</button>";
-        text +="</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        text +="</td><td><img src=\"Images/"+Class[o.Class]+".png\" alt=\""+Class[o.Class]+"\" /></td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
          
     }
     return text;
