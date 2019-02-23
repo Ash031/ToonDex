@@ -9,13 +9,13 @@ loadString = function(string){
 load = function(){
     if(localStorage.tunes) {
         tunes = JSON.parse(localStorage.tunes);
-        if(localStorage.Version){
-            if(localStorage.Version==="0.0.1"){
+        if(localStorage.version){
+            if(localStorage.version==="0.0.1"){
                 Teams = [[],[],[],[]];
             }
             else {
                 // Updated
-                Tams = JSON.parse(localStorage.teams);
+                Teams = JSON.parse(localStorage.teams);
                 loadTunes();
                 return;
             }
