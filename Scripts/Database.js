@@ -1,25 +1,4 @@
-save = function(){
-    localStorage.setItem("tunes", JSON.stringify(tunes));
-    localStorage.setItem("version", Version);
-};
-loadString = function(string){
-    tunes = JSON.parse(string);
-};
-load = function(){
-    if(localStorage.tunes) {
-        tunes = JSON.parse(localStorage.tunes);
-        if(localStorage.Version){
-            loadTunes();
-            return;
-        }
-        else{
-            for(var i=0;i<tunes.length;i++){
-                tunes[i].Rank=(tunes[i].Rarity+1);
-            }
-        }
-    }
-    loadTunes();
-};
+
 
 allToons = function(){
     var ret = [];
@@ -71,18 +50,24 @@ searchToons = function(name){
 };
 
 printToons = function(toons){
-    var text = "<tr><th>Name</th><th>Zone</th><th>Class</th><th>Rarity</th><th>Level</th><th>TunesUp</th><th>Rank</th></tr>";
+    var text = "<tr><th>Name</th><th>Team</th><th>Class</th><th>Rarity</th><th>Level</th><th>TunesUp</th><th>Rank</th></tr>";
     for(var i=0;i<toons.length;i++){
         var o = toons[i];
         var name = "'"+o.Name+"'";
-        if(o.Zone==0)text += "<tr class=\"w3-green\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==1)text += "<tr class=\"w3-light-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==2)text += "<tr class=\"w3-yellow\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==3)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==4)text += "<tr class=\"w3-blue\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==5)text += "<tr class=\"w3-purple\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==6)text += "<tr class=\"w3-orange\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
-        if(o.Zone==7)text += "<tr class=\"w3-pink\"><td>"+o.Name+"</td><td>"+Zones[o.Zone]+"</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+        text += "<tr class=\"";
+        if(o.Zone==0)text += "w3-green";
+        if(o.Zone==1)text += "w3-light-blue";    
+        if(o.Zone==2)text += "w3-yellow";    
+        if(o.Zone==3)text += "w3-orange";    
+        if(o.Zone==4)text += "w3-blue";    
+        if(o.Zone==5)text += "w3-purple";    
+        if(o.Zone==6)text += "w3-orange";    
+        if(o.Zone==7)text += "w3-pink";   
+        text+= "\"><td>"+o.Name+"</td><td>";
+        if(onTeam(o.Name)) text+= getTeam(o.Name)+"<button onClick=\"removeFromTeam("+name+")\">Remove</button>";
+        else if(spaceLeft())text += "<button onClick=\"addToTeam("+name+")\">Add</button>";
+        text +="</td><td>"+Class[o.Class]+"</td><td>"+Rarity[o.Rarity]+"</td><td>"+o.Level+" <button onClick=\"showLvlModal("+name+")\">Change Lvl</button></td><td>"+o.TunesUp+" <button onClick=\"showTUModal("+name+")\">Change TuneUps</button><td>"+o.Rank+"<button onClick=\"showRankModal("+name+")\">Change Rank</button></td></td></tr>";    
+         
     }
     return text;
 };
@@ -211,10 +196,52 @@ SortByName = function(){
     save();
 };
 
-Version = "0.0.1";
-Zones = ["Forest","Town","Farm","Desert","City","Space","WBStudios","Avalooney"];
-Class = ["Attacker","Defender","Support"];
-Rarity= ["Common","Rare","Epic"];
+addToTeam = function(name){
+    for(var i=0;i<4;i++){
+        if(Teams[i].length<4) {
+            Teams[i][Teams[i].length] = name;
+            save();
+            loadTunes();
+            return;
+        }
+    }
+};
+
+onTeam = function(name){
+    for(var i = 0;i<4;i++){
+        for(var j=0;j<Teams[i].length;j++){
+            if(name===Teams[i][j]) return true;
+        }
+    }
+    return false;
+};
+
+getTeam = function(name){
+    for(var i = 0;i<4;i++){
+        for(var j = 0;j<Teams[i].length;j++){
+            if(Teams[i][j]===name)return i+1;
+        }
+    }
+    return 0;
+};
+
+removeFromTeam = function(name){
+    for(var i = 0;i<4;i++){
+        Teams[i] = Teams[i].filter(e => e !== name);
+    }
+    save();
+    loadTunes();
+};
+
+spaceLeft = function(){
+    for(var i = 0;i<4;i++){
+        if(Teams[i].length<4)return true;
+    }
+    return false;
+};
+
+Version = "0.0.2";
+Teams = [[],[],[],[]];
 tunes = [
     {
         Name:"Bugs Bunny",
@@ -1225,3 +1252,8 @@ tunes = [
         Obtained:false
     }
 ];
+
+//Support info
+Zones = ["Forest","Town","Farm","Desert","City","Space","WBStudios","Avalooney"];
+Class = ["Attacker","Defender","Support"];
+Rarity= ["Common","Rare","Epic"];
