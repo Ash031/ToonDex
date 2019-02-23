@@ -74,9 +74,9 @@ printToons = function(toons){
 printCollected = function(){
     var text = "";
     for(var i=0;i<tunes.length;i++){
-        var quoted = '\''+tunes[i].Name+'\'';
+        var quoted = '"'+tunes[i].Name+'"';
         var name = tunes[i].Name;
-        text += "<label><input onClick=\"getToon("+quoted+")\" type=\"checkbox\" id=\""+name+"\"";
+        text += "<label><input onClick='getToon("+quoted+")' type=\"checkbox\" id=\""+name+"\"";
         if(tunes[i].Obtained) text+="checked=\"\"";
         text +=">"+name+"</label><br/>";    
     }
@@ -283,7 +283,7 @@ getTeam = function(name){
 
 removeFromTeam = function(name){
     for(var i = 0;i<4;i++){
-        Teams[i] = Teams[i].filter(e => e !== name);
+        Teams[i] = Teams[i].filter(e =>(e !== name));
     }
     save();
     loadTunes();
@@ -297,11 +297,7 @@ spaceLeft = function(){
 };
 
 TUGoldLvl = function(TU){
-    var ret = 0;
-    for(var i = 1;i<TU;i++){
-        ret += GoldCostsTU[i];
-    }
-    return ret;
+    return GoldCostsTU[TU];
 };
 
 Teams = [[],[],[],[]];
@@ -658,7 +654,7 @@ tunes = [
         Name:"Outlaw Sylvester",
         Zone:3,
         Class:2,
-        Rarity:0,
+        Rarity:1,
         Rank:1,
         Level:1,
         TunesUp:1,
@@ -1159,18 +1155,6 @@ tunes = [
         Obtained:false
     },
     {
-        Name:"Elf Daffy Duck",
-        Zone:7,
-        Class:2,
-        Rarity:1,
-        Rank:2,
-        Level:1,
-        TunesUp:1,
-        Tags:["Bird","Holiday"],
-        OriginalToon: "Daffy Duck",
-        Obtained:false
-    },
-    {
         Name:"Daffy Hood",
         Zone:7,
         Class:0,
@@ -1282,7 +1266,7 @@ tunes = [
         Name:"Gossamer",
         Zone:7,
         Class:1,
-        Rarity:0,
+        Rarity:1,
         Rank:1,
         Level:1,
         TunesUp:1,
@@ -1313,14 +1297,27 @@ tunes = [
         Tags:["Human","Hero"],
         OriginalToon: "Elmer Fudd",
         Obtained:false
+    },
+    {
+        Name:"KChutha Saam",
+        Zone:6,
+        Class:1,
+        Rarity:1,
+        Rank:3,
+        Level:1,
+        TunesUp:1,
+        Tags:["Monster","Mastermind"],
+        OriginalToon: "Yosemite Sam",
+        Obtained:false
     }
-];
 
+];
+//
 //Support info
 Zones = ["Forest","Town","Farm","Desert","City","Space","WBStudios","Avalooney"];
 Class = ["Attacker","Defender","Support"];
 Rarity= ["Common","Rare","Epic"];
 
-GoldCostsTU = [0,0,100,115,135,150,225,265,300,345,400,715,825,975,1050,1275,2850,3300,3750,4200,4800,8100,9225,10350,11700,13050,24000,26625,29250,31875,34500];
+GoldCostsTU = [0,0,100,215,350,500,725,990,1290,1635,2035,2750,3575,4550,5600,6875,9725,13025,16775,20975,25775,33875,43100,53450,65150,78200,102200,128825,158075,189950,224450];
 GoldCostsLU = [];
 TotalXPLU = [];

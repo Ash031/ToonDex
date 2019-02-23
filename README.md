@@ -19,3 +19,10 @@ Made by: Ashzinho031
 
 - Added Teams
 - Added Reverse Sort (Double Click Sort Button)
+
+### V0.0.3:
+
+- Added K'Chutha Sa'am (Not quoted)
+- Added Reverse Sort (Double Click Sort Button)
+- Removed Duplicated Elf Daffy Duck
+- Gave the Outlaw Sylvester and Gossamer their true rarity
