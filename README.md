@@ -14,3 +14,7 @@ Made by: Ashzinho031
 - Added Basic Stats
 - Added Sorting
 - Added Data Import/Export
+
+### V0.0.2:
+
+- Added Teams
