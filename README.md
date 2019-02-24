@@ -27,3 +27,6 @@ Made by: Ashzinho031
 - Removed Duplicated Elf Daffy Duck
 - Gave the Outlaw Sylvester and Gossamer their true rarity
 - Added Total Gold Spent on Ranking up and Tuning Up (Still need to add the level up gold)
+
+### V0.0.4:
+- Removed a Bug were K'Chutha Sa'am was added every other time you reloaded the page!

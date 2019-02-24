@@ -14,16 +14,19 @@ load = function(){
                 Teams = [[],[],[],[]];
                 Version = "0.0.2";
             }
-            else {
-                // Updated
-                Teams = JSON.parse(localStorage.teams);
-            }
+            else Teams = JSON.parse(localStorage.teams);
             if(localStorage.version==="0.0.2"){
                 tunes.push({Name:"KChutha Saam",Zone:6,Class:1,Rarity:1,Rank:3,Level:1,TunesUp:1,Tags:["Monster","Mastermind"],OriginalToon: "Yosemite Sam",Obtained:false});
+                localStorage.setItem("version", "0.0.3");
                 removeToonZone("Elf Daffy Duck",7);
                 changeRarity("Gossamer",1);
                 changeRarity("Outlaw Sylvester",1);
                 Version = "0.0.3";
+                localStorage.setItem("version", "0.0.3");
+            }
+            if(localStorage.version==="0.0.3"){
+                removeToonZone("KChutha Saam",6);
+                tunes.push({Name:"KChutha Saam",Zone:6,Class:1,Rarity:1,Rank:3,Level:1,TunesUp:1,Tags:["Monster","Mastermind"],OriginalToon: "Yosemite Sam",Obtained:false});
             }
         }
         else{
@@ -49,5 +52,5 @@ removeToonZone = function(name,zone){
     tunes = tunes.filter(e => (e.Name!==name || e.Zone!==zone));
 };
 
-Version = "0.0.2";
+Version = "0.0.4";
 LastSorted=0;
