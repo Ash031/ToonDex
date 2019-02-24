@@ -15,8 +15,12 @@ generateStats = function(){
     document.getElementById("TCount").innerHTML = "Collected "+NToonGot()+" out of "+tunes.length+" toons";
     document.getElementById("avLvl").innerHTML = "Average Level: "+avLvl();
     document.getElementById("avTun").innerHTML = "Average Tune Up: "+avTU();
-    document.getElementById("GoldTU").innerHTML = "Gold Spent on Tune Up: "+TotalTUGold();
+    var TUGold = TotalTUGold();
+    document.getElementById("GoldTU").innerHTML = "Gold Spent on Tune Up: "+ TUGold;
     document.getElementById("avRank").innerHTML = "Average Rank: "+avRank();
+    var RankGold = totalRankUpGoldCost();
+    document.getElementById("GoldRank").innerHTML = "Gold spent on Ranking: "+ RankGold;
+    document.getElementById("TotalGold").innerHTML = "Total Gold spent: " + (parseInt(TUGold) + parseInt(RankGold));
 };
 
 SearchByName = function(){

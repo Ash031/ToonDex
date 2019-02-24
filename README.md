@@ -26,3 +26,4 @@ Made by: Ashzinho031
 - Added Reverse Sort (Double Click Sort Button)
 - Removed Duplicated Elf Daffy Duck
 - Gave the Outlaw Sylvester and Gossamer their true rarity
+- Added Total Gold Spent on Ranking up and Tuning Up (Still need to add the level up gold)

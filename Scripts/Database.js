@@ -300,6 +300,18 @@ TUGoldLvl = function(TU){
     return GoldCostsTU[TU];
 };
 
+totalRankUpGoldCost = function(){
+    var ret = 0;
+    for(var i = 0;i<tunes.length;i++){
+        var o = tunes[i];
+        if(o.Obtained) ret += RankUpGold(o.Rank,o.Rarity);
+    }
+    return ret;
+};
+RankUpGold = function(Rank,Rarity){
+    return GoldCostsRankUp[Rarity][Rank];
+};
+
 Teams = [[],[],[],[]];
 tunes = [
     {
@@ -1321,3 +1333,8 @@ Rarity= ["Common","Rare","Epic"];
 GoldCostsTU = [0,0,100,215,350,500,725,990,1290,1635,2035,2750,3575,4550,5600,6875,9725,13025,16775,20975,25775,33875,43100,53450,65150,78200,102200,128825,158075,189950,224450];
 GoldCostsLU = [];
 TotalXPLU = [];
+GoldCostsRankUp = [
+    [0,0,950,4750,15550,47550,117550,187550],
+    [0,0,0,3800,14600,46600,116600,186600],
+    [0,0,0,0,10800,42800,112800,182800]
+];
